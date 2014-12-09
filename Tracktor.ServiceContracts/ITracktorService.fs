@@ -2,7 +2,7 @@
 
 open System.ServiceModel
 
-[<ServiceContract(Namespace = "http://Tracktor.ServiceContract.TracktorService")>]
+[<ServiceContract(Namespace = "http://fornever.me/TracktorService")>]
 type ITracktorService =
     [<OperationContract>]
     abstract member GetIssues : unit -> Issue seq
