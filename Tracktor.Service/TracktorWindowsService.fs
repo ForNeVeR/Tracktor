@@ -2,7 +2,6 @@
 
 open System
 open System.ServiceModel
-open System.ServiceModel.Description
 open System.ServiceProcess
 
 type TracktorWindowsService() as this =
@@ -17,8 +16,7 @@ type TracktorWindowsService() as this =
     static member Name = serviceName
 
     override __.OnStart(_ : string[]) =
-        let host = new ServiceHost(typeof<TracktorService>, Uri "http://localhost:6667")
-        host.Description.Behaviors.Add <| ServiceMetadataBehavior(HttpGetEnabled = true)
+        let host = new ServiceHost(typeof<TracktorService>, Uri "net.tcp://localhost:6667")
         host.Open()
         hostRef := Some host
 

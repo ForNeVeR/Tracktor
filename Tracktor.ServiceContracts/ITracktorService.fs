@@ -2,11 +2,9 @@
 
 open System.ServiceModel
 
-[<ServiceContract(Namespace = "http://fornever.me/TracktorService")>]
+[<ServiceContract(Namespace = "http://fornever.me/TracktorService",
+                  CallbackContract = typeof<ITracktorServiceCallback>)>]
 type ITracktorService =
-    [<OperationContract>]
-    abstract member GetIssues : unit -> Issue seq
-
-    [<OperationContract>]
-    abstract member GetCommits : unit -> Issue seq
+    [<OperationContract(IsOneWay = true)>]
+    abstract member Subscribe : unit -> unit
 

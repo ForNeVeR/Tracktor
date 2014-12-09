@@ -1,18 +1,19 @@
-﻿open System.ServiceModel
-open System.ServiceModel.Description
+﻿module Tracktor.Monitor.Program
+
+open System
+open System.ServiceModel
 open Tracktor.ServiceContracts
 
 [<EntryPoint>]
 let main argv = 
-    let endpoint = new ServiceEndpoint(ContractDescription.GetContract typeof<ITracktorService>,
-                                       BasicHttpBinding(),
-                                       EndpointAddress "http://localhost:6667")
-    use factory = new ChannelFactory<ITracktorService>(endpoint)
+    use factory = new DuplexChannelFactory<ITracktorService>(TracktorServiceCallback(),
+                                                             NetTcpBinding(),
+                                                             EndpointAddress("net.tcp://localhost:6667"))
     let channel = factory.CreateChannel()
 
-    let issues = channel.GetIssues()
-    let commits = channel.GetCommits()
+    channel.Subscribe()
+    printf "Subscribed"
 
-    printfn "Got %d issues, %d commits" (Seq.length issues) (Seq.length commits)
+    Console.ReadKey() |> ignore
 
     0
