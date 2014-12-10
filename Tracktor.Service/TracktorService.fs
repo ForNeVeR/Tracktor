@@ -1,15 +1,21 @@
 ﻿namespace Tracktor.Service
 
+open System
 open System.ServiceModel
 open Tracktor.ServiceContracts
 
 [<ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)>]
 type TracktorService() =
-    let callback: ITracktorServiceCallback option ref = ref None
+    let worker: ProjectWorker option ref = ref None
     
     interface ITracktorService with
         member __.Subscribe() =
-            callback := Some <| OperationContext.Current.GetCallbackChannel<ITracktorServiceCallback>()
-            while true do
-                System.Threading.Thread.Sleep 5000
-                (!callback).Value.CommitRegistered({ Revision = "a"; Author = "x" })
+            let callback = OperationContext.Current.GetCallbackChannel<ITracktorServiceCallback>()
+            worker := Some <| new ProjectWorker(callback)
+
+    interface IDisposable with
+        member __.Dispose() =
+            match !worker with
+            | Some w -> (w :> IDisposable).Dispose()
+            | None -> ()
+

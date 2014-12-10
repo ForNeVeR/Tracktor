@@ -49,6 +49,9 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="IssueTracker.fs" />
+    <Compile Include="CommitMonitor.fs" />
+    <Compile Include="ProjectWorker.fs" />
     <Compile Include="TracktorService.fs" />
     <Compile Include="TracktorWindowsService.fs" />
     <Compile Include="TracktorServiceInstaller.fs" />
