@@ -2,6 +2,7 @@
 
 open System
 open Tracktor.ServiceContracts
+open Tracktor.SourceControl.Svn
 
 type ProjectWorker(callback: ITracktorServiceCallback) =
     let issueTracker = new IssueTracker()
