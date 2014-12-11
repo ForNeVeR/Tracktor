@@ -5,14 +5,14 @@ open System.Globalization
 open SharpSvn
 open Tracktor.ServiceContracts
 
-type CommitMonitor() as this =
+type CommitMonitor() =
     let event = Event<_>()
     let client = new SvnClient()
 
     let raiseEvent (args: SvnLogEventArgs) =
         let commit = { Revision = args.Revision.ToString(CultureInfo.InvariantCulture)
                        Author = args.Author }
-        event.Trigger(this, commit)
+        event.Trigger commit
 
     member __.NewCommit = event.Publish
     member __.Start() =

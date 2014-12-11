@@ -4,5 +4,5 @@ open Tracktor.ServiceContracts
 
 type TracktorServiceCallback() =
     interface ITracktorServiceCallback with
-        member __.CommitRegistered commit =
-            printfn "%A" commit
+        member __.FixAvailable (issue, commit) =
+            printfn "%A -> %A" issue commit

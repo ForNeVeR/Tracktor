@@ -19,6 +19,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Monitor", "Trackto
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.SourceControl.Svn", "Tracktor.SourceControl.Svn\Tracktor.SourceControl.Svn.fsproj", "{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Processing", "Tracktor.Processing\Tracktor.Processing.fsproj", "{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,10 @@ Global
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Debug|x64.Build.0 = Debug|x64
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Release|x64.ActiveCfg = Release|x64
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Release|x64.Build.0 = Release|x64
+		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|x64.ActiveCfg = Debug|x64
+		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|x64.Build.0 = Debug|x64
+		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|x64.ActiveCfg = Release|x64
+		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
