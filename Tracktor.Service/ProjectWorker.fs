@@ -11,8 +11,10 @@ type ProjectWorker(callback: ITracktorServiceCallback) =
 
     let processor = new Processor(callback)
 
-    do issueTracker.NewIssue |> Event.add processor.Post
-    do commitMonitor.NewCommit |> Event.add processor.Post
+    let processEvent f args = Async.RunSynchronously (f args)
+
+    do issueTracker.NewIssue |> Event.add (processEvent processor.Post)
+    do commitMonitor.NewCommit |> Event.add (processEvent processor.Post)
 
     do issueTracker.Start()
     do commitMonitor.Start()

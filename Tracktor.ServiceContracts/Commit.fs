@@ -4,4 +4,3 @@ type Commit = {
     Revision : string
     Author : string
 }
-

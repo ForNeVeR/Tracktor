@@ -12,8 +12,10 @@ type Processor(callback: ITracktorServiceCallback) =
 
     do mailbox.Start()
 
-    member __.Post commit = mailbox.Post <| NewCommit commit
-    member __.Post issue = mailbox.Post <| NewIssue issue
+    let send msg : unit Async = mailbox.PostAndAsyncReply (fun _ -> msg)
+
+    member __.Post commit = send <| NewCommit commit
+    member __.Post issue = send <| NewIssue issue
 
     interface IDisposable with
         member __.Dispose() = ()
