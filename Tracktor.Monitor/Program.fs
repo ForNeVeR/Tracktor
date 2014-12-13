@@ -3,8 +3,8 @@
 open FSharp.Desktop.UI
 open System
 open System.ServiceModel
-open Tracktor.ServiceContracts
 open System.Windows
+open Tracktor.ServiceContracts
 
 let subscribe() = 
     use factory = new DuplexChannelFactory<ITracktorService>(TracktorServiceCallback(),
@@ -17,9 +17,9 @@ let subscribe() =
 
 [<EntryPoint; STAThread>]
 let main _ = 
-    let model = MainWindowModel.Create()
-    let view = MainView()
-    let controller = MainController.create()
+    let model = ApplicationModel.Create()
+    let view = MainView.create()
+    let controller = ApplicationController.create()
 
     let mvc = Mvc(model, view, controller)
     use eventLoop = mvc.Start()

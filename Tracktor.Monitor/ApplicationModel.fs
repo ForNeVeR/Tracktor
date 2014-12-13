@@ -2,5 +2,6 @@
 
 open FSharp.Desktop.UI
 
-type MainWindowModel() =
+[<AbstractClass>]
+type ApplicationModel() =
     inherit Model()
