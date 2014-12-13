@@ -13,36 +13,6 @@
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>Tracktor.Tests</Name>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DatabaseTest.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tracktor.Database\Tracktor.Database.fsproj">
-      <Name>Tracktor.Database</Name>
-      <Project>{4ba3bd3c-159d-46b9-bac7-a3c12edb3f61}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Processing\Tracktor.Processing.fsproj">
-      <Name>Tracktor.Processing</Name>
-      <Project>{67e9dc75-0ceb-4af5-b7e2-1b933e6f062c}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">
-      <Name>Tracktor.ServiceContracts</Name>
-      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -80,6 +50,40 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
+  <ItemGroup>
+    <Compile Include="DatabaseTest.fs" />
+    <Content Include="packages.config" />
+    <Content Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Foq">
+      <HintPath>..\packages\Foq.1.6\Lib\net45\Foq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <ProjectReference Include="..\Tracktor.Database\Tracktor.Database.fsproj">
+      <Name>Tracktor.Database</Name>
+      <Project>{4ba3bd3c-159d-46b9-bac7-a3c12edb3f61}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracktor.Processing\Tracktor.Processing.fsproj">
+      <Name>Tracktor.Processing</Name>
+      <Project>{67e9dc75-0ceb-4af5-b7e2-1b933e6f062c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">
+      <Name>Tracktor.ServiceContracts</Name>
+      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
