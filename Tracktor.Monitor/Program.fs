@@ -2,18 +2,7 @@
 
 open FSharp.Desktop.UI
 open System
-open System.ServiceModel
 open System.Windows
-open Tracktor.ServiceContracts
-
-let subscribe() = 
-    use factory = new DuplexChannelFactory<ITracktorService>(TracktorServiceCallback(),
-                                                             NetTcpBinding(),
-                                                             EndpointAddress("net.tcp://localhost:6667"))
-    let channel = factory.CreateChannel()
-
-    channel.Subscribe()
-    printf "Subscribed"
 
 [<EntryPoint; STAThread>]
 let main _ = 
@@ -21,7 +10,10 @@ let main _ =
     let view = MainView.create()
     let controller = ApplicationController.create()
 
-    let mvc = Mvc(model, view, controller)
+    use connection = new TracktorServiceConnection()
+    let serviceController = ServiceController.create()
+
+    let mvc = Mvc(model, view, controller).Compose(serviceController, connection)
     use eventLoop = mvc.Start()
 
-    Application().Run( window = view.Root)
+    Application().Run view.Root

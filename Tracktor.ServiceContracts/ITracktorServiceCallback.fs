@@ -4,4 +4,4 @@ open System.ServiceModel
 
 type ITracktorServiceCallback =
     [<OperationContract(IsOneWay = true)>]
-    abstract FixAvailable : fix: Issue * Commit -> unit
+    abstract FixAvailable : issue : Issue * commit : Commit -> unit
