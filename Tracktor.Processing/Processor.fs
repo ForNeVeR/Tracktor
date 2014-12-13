@@ -1,11 +1,18 @@
 ﻿namespace Tracktor.Processing
 
+open Microsoft.Practices.Unity
 open System
+open Tracktor.Database
 open Tracktor.ServiceContracts
 
-type Processor(callback: ITracktorServiceCallback) =
+type Processor(container: IUnityContainer, callback: ITracktorServiceCallback) =
+    let commitRepository = container.Resolve<ICommitRepository>()
+
     let dispatch (channel : AsyncReplyChannel<unit>) message = async { 
-        channel.Reply ()
+        match message with
+        | NewCommit commit ->
+            do! commitRepository.Save commit
+            channel.Reply ()
     }
     
     let mailbox = new MailboxProcessor<_>(fun inbox ->

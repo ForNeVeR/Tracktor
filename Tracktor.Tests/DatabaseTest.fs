@@ -1,6 +1,7 @@
 ﻿namespace Tracktor.Tests
 
 open Foq
+open Microsoft.Practices.Unity
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open Tracktor.Database
 open Tracktor.Processing
@@ -9,18 +10,20 @@ open Tracktor.ServiceContracts
 [<TestClass>]
 type DatabaseTest() =
     let callback = Mock<ITracktorServiceCallback>().Create()
-    let processor = new Processor(callback)
+    let processor commitRepository =
+        use container = (new UnityContainer()).RegisterInstance<ICommitRepository> commitRepository
+        new Processor(container, callback)    
 
-    let mockCommitRepository() =
+    let commitRepository() =
         Mock<ICommitRepository>()
             .SetupMethod(fun x -> <@ x.Save @>)
-            .Returns(async { return 1L })
+            .Returns(async { return () })
             .Create()
 
     [<TestMethod>]
     member __.PostedCommitShouldBeSaved() =
-        let commitRepository = mockCommitRepository()            
-        // TODO: Create dependency container and put the repository there
+        let commitRepository = commitRepository()
+        let processor = processor commitRepository
 
         let commit = { Revision = "1"
                        Author = "A" }
