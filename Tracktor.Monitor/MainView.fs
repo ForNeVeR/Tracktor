@@ -1,8 +1,10 @@
 ﻿module Tracktor.Monitor.MainView
 
 open FSharp.Desktop.UI
+open FSharp.Desktop.UI.Binding
 open FsXaml
 open System.Windows
+open System.Windows.Data
 
 type MainWindow = XAML<"MainWindow.xaml", true>
 
@@ -14,7 +16,11 @@ type MainView(window : MainWindow) =
         window.Root.Closing |> Observable.map (fun event -> event.Cancel <- true; Exit)
     ]
         
-    override __.SetBindings model = ()
+    override __.SetBindings model =
+        Binding.OfExpression 
+            <@
+                window.ExitButton.Content <- model.Notifications.Count
+            @>
 
 let create() =
     let window = MainWindow()

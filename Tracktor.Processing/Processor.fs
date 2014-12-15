@@ -24,6 +24,17 @@ type Processor(container: IUnityContainer, callback: ITracktorServiceCallback) =
                 return! dispatch channel message })
 
     do mailbox.Start()
+    do ignore <| (Async.StartAsTask <| async {
+        // TODO: Remove this. It is here for testing purposes only.
+        while true do
+            do! Async.Sleep 5000
+            let issue = { Id = "id"
+                          Name = "name"
+                          Assignee = "assignee" }
+            let commit = { Revision = "revision"
+                           Author = "author" }
+            callback.FixAvailable(issue, commit)
+    })
 
     let send msg = mailbox.PostAndAsyncReply (fun channel -> (channel, msg))
 

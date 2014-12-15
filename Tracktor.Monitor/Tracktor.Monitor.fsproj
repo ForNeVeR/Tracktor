@@ -54,7 +54,7 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="TracktorServiceCallback.fs" />
+    <Compile Include="NotificationModel.fs" />
     <Compile Include="ApplicationModel.fs" />
     <Compile Include="MainViewEvent.fs" />
     <Compile Include="MainView.fs" />
