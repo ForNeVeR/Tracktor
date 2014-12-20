@@ -6,16 +6,26 @@ open System.ServiceProcess
 open Tracktor.Database
 open Tracktor.ServiceContracts
 
-let configure (container : IUnityContainer) =
+let configureServices (container : IUnityContainer) =
     container
         .RegisterType<TracktorWindowsService>()
         .RegisterType<ITracktorService, TracktorService>()
-        .RegisterType<IIssueRepository, DummyIssueRepository>() // TODO: Implement the real repository.
-        .RegisterType<ICommitRepository, DummyCommitRepository>() // TODO: Implement the real repository.
+
+let configure (container : IUnityContainer) =
+    container
+    |> TracktorDatabase.configure
+    |> configureServices
+
+let migrateDatabase (container : IUnityContainer) =
+    let updater = container.Resolve<IDatabaseUpdater>()
+    updater.Update()
 
 [<EntryPoint>]
 let main args =
     use container = configure <| new UnityContainer()
+    
+    migrateDatabase container
+
     use service = container.Resolve<TracktorWindowsService>()
     if Environment.UserInteractive
     then 
