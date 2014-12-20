@@ -1,7 +1,6 @@
 ﻿namespace Tracktor.Tests
 
 open Foq
-open Microsoft.Practices.Unity
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open Tracktor.Database
 open Tracktor.Processing
@@ -11,11 +10,7 @@ open Tracktor.ServiceContracts
 type DatabaseTest() =
     let callback = Mock<ITracktorServiceCallback>().Create()
     let processor issueRepository commitRepository =
-        use container = 
-            (new UnityContainer())
-                .RegisterInstance<IIssueRepository>(issueRepository)
-                .RegisterInstance<ICommitRepository>(commitRepository)                
-        new Processor(container, callback)
+        new Processor(callback, issueRepository, commitRepository)
 
     let issueRepository() =
         Mock<IIssueRepository>()
