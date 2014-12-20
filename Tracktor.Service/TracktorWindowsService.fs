@@ -1,10 +1,13 @@
 ﻿namespace Tracktor.Service
 
+open Microsoft.Practices.Unity
 open System
 open System.ServiceModel
 open System.ServiceProcess
+open Unity.Wcf
+open Tracktor.ServiceContracts
 
-type TracktorWindowsService() as this =
+type TracktorWindowsService(container : IUnityContainer) as this =
     inherit ServiceBase()
 
     static let serviceName = "TracktorService"
@@ -16,9 +19,14 @@ type TracktorWindowsService() as this =
     static member Name = serviceName
 
     override __.OnStart(_ : string[]) =
-        let host = new ServiceHost(typeof<TracktorService>, Uri "net.tcp://localhost:6667")
+        let serviceType = 
+            container.Registrations
+            |> Seq.filter (fun r -> r.RegisteredType = typeof<ITracktorService>)
+            |> Seq.map (fun r -> r.MappedToType)
+            |> Seq.head
+        let host = new UnityServiceHost(container, serviceType, Uri "net.tcp://localhost:6667")
         host.Open()
-        hostRef := Some host
+        hostRef := Some <| upcast host
 
     override __.OnStop() =
         match !hostRef with

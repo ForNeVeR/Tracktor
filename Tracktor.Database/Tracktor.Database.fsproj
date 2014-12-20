@@ -26,6 +26,7 @@
     <Compile Include="IRepository.fs" />
     <Compile Include="ICommitRepository.fs" />
     <Compile Include="IIssueRepository.fs" />
+    <Compile Include="Dummies.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">

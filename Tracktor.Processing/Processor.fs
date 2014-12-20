@@ -1,14 +1,9 @@
 ﻿namespace Tracktor.Processing
 
-open Microsoft.Practices.Unity
-open System
 open Tracktor.Database
 open Tracktor.ServiceContracts
 
-type Processor(container: IUnityContainer, callback: ITracktorServiceCallback) =
-    let issueRepository = container.Resolve<IIssueRepository>()
-    let commitRepository = container.Resolve<ICommitRepository>()
-
+type Processor(callback : ITracktorServiceCallback, issueRepository : IIssueRepository, commitRepository : ICommitRepository) =
     let dispatch (channel : AsyncReplyChannel<unit>) message = async { 
         match message with
         | NewIssue issue ->
@@ -40,6 +35,3 @@ type Processor(container: IUnityContainer, callback: ITracktorServiceCallback) =
 
     member __.Post issue = send <| NewIssue issue
     member __.Post commit = send <| NewCommit commit
-
-    interface IDisposable with
-        member __.Dispose() = ()

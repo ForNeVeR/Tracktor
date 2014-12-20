@@ -77,8 +77,14 @@
     <Compile Include="TracktorServiceInstaller.fs" />
     <Compile Include="Program.fs" />
     <Content Include="packages.config" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tracktor.Database\Tracktor.Database.fsproj">
+      <Name>Tracktor.Database</Name>
+      <Project>{4ba3bd3c-159d-46b9-bac7-a3c12edb3f61}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Tracktor.Processing\Tracktor.Processing.fsproj">
       <Name>Tracktor.Processing</Name>
       <Project>{67e9dc75-0ceb-4af5-b7e2-1b933e6f062c}</Project>
@@ -110,12 +116,17 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceProcess" />
     <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">
       <Name>Tracktor.ServiceContracts</Name>
       <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <Reference Include="Unity.Wcf">
+      <HintPath>..\packages\Unity.Wcf.1.0.0\lib\Unity.Wcf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
