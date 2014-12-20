@@ -58,12 +58,19 @@
     <Compile Include="ApplicationModel.fs" />
     <Compile Include="MainViewEvent.fs" />
     <Compile Include="MainView.fs" />
-    <Compile Include="ApplicationController.fs" />
     <Compile Include="ServiceEvent.fs" />
     <Compile Include="TracktorServiceConnection.fs" />
     <Compile Include="ServiceController.fs" />
+    <Compile Include="ApplicationController.fs" />
+    <Compile Include="ApplicationMvc.fs" />
+    <Compile Include="FixModel.fs" />
+    <Compile Include="FixViewEvent.fs" />
+    <Compile Include="FixView.fs" />
+    <Compile Include="FixController.fs" />
+    <Compile Include="FixMvc.fs" />
     <Compile Include="Program.fs" />
     <Resource Include="MainWindow.xaml" />
+    <Resource Include="FixWindow.xaml" />
     <Content Include="app.config" />
     <Content Include="packages.config" />
   </ItemGroup>

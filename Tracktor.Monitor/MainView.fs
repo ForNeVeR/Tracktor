@@ -1,7 +1,6 @@
 ﻿module Tracktor.Monitor.MainView
 
 open FSharp.Desktop.UI
-open FSharp.Desktop.UI.Binding
 open FsXaml
 open System.Windows
 open System.Windows.Data
