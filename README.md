@@ -12,7 +12,9 @@ migration so you hopefully won't need to administer it.
 3. Set up the connection string in `Tracktor.Service/app.config`. It should
    look like this:
 
+```
     Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
+```
 
 Service Installation
 --------------------
