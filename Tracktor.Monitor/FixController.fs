@@ -3,7 +3,6 @@
 open FSharp.Desktop.UI
 
 let create() =
-    let dispatch event (model : FixModel) =
-        ()
+    let dispatch _ _ = ()
 
     Controller.Create dispatch

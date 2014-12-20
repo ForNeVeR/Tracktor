@@ -8,7 +8,7 @@ open System.Windows.Data
 type FixWindow = XAML<"FixWindow.xaml", true>
 
 type FixView(window : FixWindow) =
-    inherit View<FixViewEvent, FixModel, Window>(window.Root)
+    inherit View<FixViewEvent, NotificationModel, Window>(window.Root)
 
     override __.EventStreams = []
         
