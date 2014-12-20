@@ -13,7 +13,7 @@ migration so you hopefully won't need to administer it.
    look like this:
 
 ```
-    Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
+Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
 ```
 
 Service Installation
