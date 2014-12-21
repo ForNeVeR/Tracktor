@@ -1,6 +1,6 @@
 ﻿namespace Tracktor.Monitor
 
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 open FSharp.Desktop.UI
 
 [<AbstractClass>]

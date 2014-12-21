@@ -3,8 +3,9 @@
 open Microsoft.Practices.Unity
 open System
 open System.ServiceProcess
+open Tracktor.Contracts
 open Tracktor.Database
-open Tracktor.ServiceContracts
+open Tracktor.Service.Common
 
 let configureServices (container : IUnityContainer) =
     container
@@ -13,11 +14,12 @@ let configureServices (container : IUnityContainer) =
 
 let configure (container : IUnityContainer) =
     container
+    |> TracktorServiceCommon.configure
     |> TracktorDatabase.configure
     |> configureServices
 
 let migrateDatabase (container : IUnityContainer) =
-    let updater = container.Resolve<IDatabaseUpdater>()
+    let updater = container.Resolve<DatabaseUpdater>()
     updater.Update()
 
 [<EntryPoint>]

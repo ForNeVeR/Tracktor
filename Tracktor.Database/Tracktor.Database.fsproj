@@ -72,18 +72,29 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="Migrations\AddCommitsTable.fs" />
+    <Compile Include="Migrations\AddIssuesTable.fs" />
     <Compile Include="IRepository.fs" />
     <Compile Include="ICommitRepository.fs" />
     <Compile Include="IIssueRepository.fs" />
-    <Compile Include="Dummies.fs" />
-    <Compile Include="IDatabaseUpdater.fs" />
     <Compile Include="DatabaseUpdater.fs" />
+    <Compile Include="BaseRepository.fs" />
+    <Compile Include="CommitRepository.fs" />
+    <Compile Include="IssueRepository.fs" />
     <Compile Include="TracktorDatabase.fs" />
-    <Compile Include="Connection.fs" />
     <Content Include="packages.config" />
-    <Compile Include="Migrations\AddCommitsTable.fs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tracktor.Contracts\Tracktor.Contracts.fsproj">
+      <Name>Tracktor.Contracts</Name>
+      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracktor.Service.Common\Tracktor.Service.Common.fsproj">
+      <Name>Tracktor.Service.Common</Name>
+      <Project>{aab8502c-68de-424a-bc1d-60359e7c4246}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <Reference Include="FluentMigrator">
       <HintPath>..\packages\FluentMigrator.1.3.1.0\lib\40\FluentMigrator.dll</HintPath>
       <Private>True</Private>
@@ -116,14 +127,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
-    <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">
-      <Name>Tracktor.ServiceContracts</Name>
-      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

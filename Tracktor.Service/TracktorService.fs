@@ -3,7 +3,7 @@
 open Microsoft.Practices.Unity
 open System
 open System.ServiceModel
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 [<ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)>]
 type TracktorService(container : IUnityContainer) =

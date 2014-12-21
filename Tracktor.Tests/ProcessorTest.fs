@@ -3,11 +3,11 @@
 open Foq
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open Tracktor.Database
-open Tracktor.Processing
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
+open Tracktor.Service.Processing
 
 [<TestClass>]
-type DatabaseTest() =
+type ProcessorTest() =
     let callback = Mock<ITracktorServiceCallback>().Create()
     let processor issueRepository commitRepository =
         new Processor(callback, issueRepository, commitRepository)
@@ -44,7 +44,7 @@ type DatabaseTest() =
         let commitRepository = commitRepository()
         let processor = processor issueRepository commitRepository
 
-        let issue = { Id = "1"
+        let issue = { Key = "1"
                       Name = "N"
                       Assignee = "A" }
         Async.RunSynchronously <| async {

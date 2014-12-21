@@ -1,8 +1,7 @@
-﻿namespace Tracktor.Processing
+﻿namespace Tracktor.Service.Processing
 
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type ProcessorEvent =
 | NewCommit of Commit
 | NewIssue of Issue
-

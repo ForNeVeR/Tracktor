@@ -1,7 +1,7 @@
-﻿namespace Tracktor.Processing
+﻿namespace Tracktor.Service.Processing
 
 open Tracktor.Database
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type Processor(callback : ITracktorServiceCallback, issueRepository : IIssueRepository, commitRepository : ICommitRepository) =
     let dispatch (channel : AsyncReplyChannel<unit>) message = async { 
@@ -23,7 +23,7 @@ type Processor(callback : ITracktorServiceCallback, issueRepository : IIssueRepo
         // TODO: Remove this. It is here for testing purposes only.
         while true do
             do! Async.Sleep 5000
-            let issue = { Id = "id"
+            let issue = { Key = "key"
                           Name = "name"
                           Assignee = "assignee" }
             let commit = { Revision = "revision"

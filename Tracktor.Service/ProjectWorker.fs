@@ -1,7 +1,7 @@
 ﻿namespace Tracktor.Service
 
 open Microsoft.Practices.Unity
-open Tracktor.Processing
+open Tracktor.Service.Processing
 open Tracktor.SourceControl.Svn
 
 type ProjectWorker(container : IUnityContainer) =

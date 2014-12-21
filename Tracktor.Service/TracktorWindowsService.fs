@@ -5,7 +5,7 @@ open System
 open System.ServiceModel
 open System.ServiceProcess
 open Unity.Wcf
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type TracktorWindowsService(container : IUnityContainer) as this =
     inherit ServiceBase()

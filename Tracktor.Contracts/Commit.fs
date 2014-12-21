@@ -1,4 +1,4 @@
-﻿namespace Tracktor.ServiceContracts
+﻿namespace Tracktor.Contracts
 
 type Commit = {
     Revision : string

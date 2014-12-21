@@ -1,5 +1,5 @@
 ﻿namespace Tracktor.Database
 
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type IIssueRepository = IRepository<Issue>

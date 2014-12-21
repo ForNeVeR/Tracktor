@@ -1,7 +1,7 @@
-﻿namespace Tracktor.ServiceContracts
+﻿namespace Tracktor.Contracts
 
 type Issue = {
-    Id : string
+    Key : string
     Name : string
     Assignee : string
 }

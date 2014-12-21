@@ -80,14 +80,24 @@
     <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tracktor.Contracts\Tracktor.Contracts.fsproj">
+      <Name>Tracktor.Contracts</Name>
+      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Tracktor.Database\Tracktor.Database.fsproj">
       <Name>Tracktor.Database</Name>
       <Project>{4ba3bd3c-159d-46b9-bac7-a3c12edb3f61}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Processing\Tracktor.Processing.fsproj">
-      <Name>Tracktor.Processing</Name>
-      <Project>{67e9dc75-0ceb-4af5-b7e2-1b933e6f062c}</Project>
+    <ProjectReference Include="..\Tracktor.Service.Common\Tracktor.Service.Common.fsproj">
+      <Name>Tracktor.Service.Common</Name>
+      <Project>{aab8502c-68de-424a-bc1d-60359e7c4246}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracktor.Service.Processing\Tracktor.Service.Processing.fsproj">
+      <Name>Tracktor.Service.Processing</Name>
+      <Project>{8ac72f66-cf33-403f-9fb5-bb230675ddb3}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Tracktor.SourceControl.Svn\Tracktor.SourceControl.Svn.fsproj">
@@ -118,11 +128,6 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceProcess" />
-    <ProjectReference Include="..\Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj">
-      <Name>Tracktor.ServiceContracts</Name>
-      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <Reference Include="Unity.Wcf">
       <HintPath>..\packages\Unity.Wcf.1.0.0\lib\Unity.Wcf.dll</HintPath>
       <Private>True</Private>

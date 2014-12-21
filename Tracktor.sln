@@ -13,17 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.ServiceContracts", "Tracktor.ServiceContracts\Tracktor.ServiceContracts.fsproj", "{C10B25BB-7534-4689-8EEA-062760B0488D}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Contracts", "Tracktor.Contracts\Tracktor.Contracts.fsproj", "{C10B25BB-7534-4689-8EEA-062760B0488D}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Monitor", "Tracktor.Monitor\Tracktor.Monitor.fsproj", "{865FAA39-D5A4-4584-A987-BEAA7F3B7317}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.SourceControl.Svn", "Tracktor.SourceControl.Svn\Tracktor.SourceControl.Svn.fsproj", "{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Processing", "Tracktor.Processing\Tracktor.Processing.fsproj", "{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Database", "Tracktor.Database\Tracktor.Database.fsproj", "{4BA3BD3C-159D-46B9-BAC7-A3C12EDB3F61}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Tests", "Tracktor.Tests\Tracktor.Tests.fsproj", "{E52BF82F-8409-4E30-8C09-1737421F3ACF}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Service.Common", "Tracktor.Service.Common\Tracktor.Service.Common.fsproj", "{AAB8502C-68DE-424A-BC1D-60359E7C4246}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Service.Processing", "Tracktor.Service.Processing\Tracktor.Service.Processing.fsproj", "{8AC72F66-CF33-403F-9FB5-BB230675DDB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,14 +67,6 @@ Global
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Release|Any CPU (develop).Build.0 = Release|x64
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Release|x64.ActiveCfg = Release|x64
 		{559CB3D8-6C98-411A-BF1E-F6AC7DAD75C5}.Release|x64.Build.0 = Release|x64
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|Any CPU (develop).ActiveCfg = Debug|Any CPU
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|Any CPU (develop).Build.0 = Debug|Any CPU
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|x64.ActiveCfg = Debug|x64
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Debug|x64.Build.0 = Debug|x64
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|Any CPU (develop).ActiveCfg = Release|Any CPU
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|Any CPU (develop).Build.0 = Release|Any CPU
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|x64.ActiveCfg = Release|x64
-		{67E9DC75-0CEB-4AF5-B7E2-1B933E6F062C}.Release|x64.Build.0 = Release|x64
 		{4BA3BD3C-159D-46B9-BAC7-A3C12EDB3F61}.Debug|Any CPU (develop).ActiveCfg = Debug|x64
 		{4BA3BD3C-159D-46B9-BAC7-A3C12EDB3F61}.Debug|Any CPU (develop).Build.0 = Debug|x64
 		{4BA3BD3C-159D-46B9-BAC7-A3C12EDB3F61}.Debug|x64.ActiveCfg = Debug|x64
@@ -89,6 +83,18 @@ Global
 		{E52BF82F-8409-4E30-8C09-1737421F3ACF}.Release|Any CPU (develop).Build.0 = Release|Any CPU
 		{E52BF82F-8409-4E30-8C09-1737421F3ACF}.Release|x64.ActiveCfg = Release|x64
 		{E52BF82F-8409-4E30-8C09-1737421F3ACF}.Release|x64.Build.0 = Release|x64
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Debug|Any CPU (develop).ActiveCfg = Debug|Any CPU
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Debug|Any CPU (develop).Build.0 = Debug|Any CPU
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Debug|x64.ActiveCfg = Debug|x64
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Debug|x64.Build.0 = Debug|x64
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Release|Any CPU (develop).ActiveCfg = Release|Any CPU
+		{AAB8502C-68DE-424A-BC1D-60359E7C4246}.Release|x64.ActiveCfg = Release|Any CPU
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Debug|Any CPU (develop).ActiveCfg = Debug|Any CPU
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Debug|Any CPU (develop).Build.0 = Debug|Any CPU
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Debug|x64.ActiveCfg = Debug|x64
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Debug|x64.Build.0 = Debug|x64
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Release|Any CPU (develop).ActiveCfg = Release|Any CPU
+		{8AC72F66-CF33-403F-9FB5-BB230675DDB3}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

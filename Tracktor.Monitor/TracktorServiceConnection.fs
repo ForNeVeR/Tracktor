@@ -2,7 +2,7 @@
 
 open System
 open System.ServiceModel
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type TracktorServiceConnection() as this =
     let factory = new DuplexChannelFactory<ITracktorService>(this,

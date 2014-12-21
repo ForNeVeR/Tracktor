@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>559cb3d8-6c98-411a-bf1e-f6ac7dad75c5</ProjectGuid>
+    <ProjectGuid>c10b25bb-7534-4689-8eea-062760b0488d</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Tracktor.SourceControl.Svn</RootNamespace>
-    <AssemblyName>Tracktor.SourceControl.Svn</AssemblyName>
+    <RootNamespace>Tracktor.ServiceContracts</RootNamespace>
+    <AssemblyName>Tracktor.ServiceContracts</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>Tracktor.SourceControl.Svn</Name>
+    <Name>Tracktor.Contracts</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Tracktor.SourceControl.Svn.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Tracktor.ServiceContracts.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,8 +30,24 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Tracktor.SourceControl.Svn.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Tracktor.ServiceContracts.XML</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Issue.fs" />
+    <Compile Include="Commit.fs" />
+    <Compile Include="ITracktorServiceCallback.fs" />
+    <Compile Include="ITracktorService.fs" />
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -43,7 +59,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Tracktor.SourceControl.Svn.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Tracktor.ServiceContracts.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
@@ -53,7 +69,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Tracktor.SourceControl.Svn.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Tracktor.ServiceContracts.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <Choose>
@@ -69,34 +85,6 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <ItemGroup>
-    <Compile Include="CommitMonitor.fs" />
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpSvn">
-      <HintPath>..\packages\SharpSvn.1.8-x64.1.8011.3394.61\lib\net40\SharpSvn.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpSvn.UI">
-      <HintPath>..\packages\SharpSvn.1.8-x64.1.8011.3394.61\lib\net40\SharpSvn.UI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tracktor.Contracts\Tracktor.Contracts.fsproj">
-      <Name>Tracktor.Contracts</Name>
-      <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

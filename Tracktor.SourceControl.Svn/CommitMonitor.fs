@@ -3,7 +3,7 @@
 open System
 open System.Globalization
 open SharpSvn
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type CommitMonitor() =
     let event = Event<_>()

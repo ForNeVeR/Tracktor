@@ -1,5 +1,5 @@
 ﻿namespace Tracktor.Monitor
 
-open Tracktor.ServiceContracts
+open Tracktor.Contracts
 
 type ServiceEvent = FixAvailable of Issue * Commit
