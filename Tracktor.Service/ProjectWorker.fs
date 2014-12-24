@@ -1,17 +1,11 @@
 ﻿namespace Tracktor.Service
 
-open Microsoft.Practices.Unity
 open Tracktor.Service.Processing
-open Tracktor.SourceControl.Svn
+open Tracktor.Service.SourceControl
 
-type ProjectWorker(container : IUnityContainer) =
-    let issueTracker = container.Resolve<IssueTracker>()
-    let commitMonitor = container.Resolve<CommitMonitor>()
-
-    do ignore(container.RegisterInstance(issueTracker).RegisterInstance(commitMonitor))
-
-    let processor = container.Resolve<Processor>()
-
+type ProjectWorker(issueTracker : IssueTracker,
+                   commitMonitor : ICommitMonitor,
+                   processor : Processor) =
     let processEvent f args = Async.RunSynchronously (f args)
 
     do issueTracker.NewIssue |> Event.add (processEvent processor.Post)

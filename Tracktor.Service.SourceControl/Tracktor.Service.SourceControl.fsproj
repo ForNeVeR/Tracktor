@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>4039104e-5785-4d19-8ae2-26070561f967</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Tracktor.Service</RootNamespace>
-    <AssemblyName>Tracktor.Service</AssemblyName>
+    <ProjectGuid>9fcfcb13-42ae-4eb0-8e57-b796bf8dbaea</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tracktor.Service.SourceControl</RootNamespace>
+    <AssemblyName>Tracktor.Service.SourceControl</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>Tracktor.Service</Name>
+    <Name>Tracktor.Service.SourceControl</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Tracktor.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Tracktor.Service.SourceControl.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +30,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Tracktor.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Tracktor.Service.SourceControl.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -43,7 +43,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Tracktor.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Tracktor.Service.SourceControl.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
@@ -53,7 +53,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Tracktor.Service.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Tracktor.Service.SourceControl.XML</DocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <Choose>
@@ -70,14 +70,42 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="IssueTracker.fs" />
-    <Compile Include="ProjectWorker.fs" />
-    <Compile Include="TracktorService.fs" />
-    <Compile Include="TracktorWindowsService.fs" />
-    <Compile Include="TracktorServiceInstaller.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="ICommitMonitor.fs" />
+    <Compile Include="GitCommitMonitor.fs" />
     <Content Include="packages.config" />
-    <Content Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="LibGit2Sharp">
+      <HintPath>..\packages\LibGit2Sharp.0.19.0.0\lib\net40\LibGit2Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveGit">
+      <HintPath>..\packages\ReactiveGit.0.0.4\lib\net45\ReactiveGit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tracktor.Contracts\Tracktor.Contracts.fsproj">
@@ -85,53 +113,6 @@
       <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Database\Tracktor.Database.fsproj">
-      <Name>Tracktor.Database</Name>
-      <Project>{4ba3bd3c-159d-46b9-bac7-a3c12edb3f61}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Service.Common\Tracktor.Service.Common.fsproj">
-      <Name>Tracktor.Service.Common</Name>
-      <Project>{aab8502c-68de-424a-bc1d-60359e7c4246}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Service.Processing\Tracktor.Service.Processing.fsproj">
-      <Name>Tracktor.Service.Processing</Name>
-      <Project>{8ac72f66-cf33-403f-9fb5-bb230675ddb3}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Tracktor.Service.SourceControl\Tracktor.Service.SourceControl.fsproj">
-      <Name>Tracktor.Service.SourceControl</Name>
-      <Project>{9fcfcb13-42ae-4eb0-8e57-b796bf8dbaea}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="Unity.Wcf">
-      <HintPath>..\packages\Unity.Wcf.1.0.0\lib\Unity.Wcf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

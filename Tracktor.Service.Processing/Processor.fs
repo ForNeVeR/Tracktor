@@ -3,7 +3,9 @@
 open Tracktor.Database
 open Tracktor.Contracts
 
-type Processor(callback : ITracktorServiceCallback, issueRepository : IIssueRepository, commitRepository : ICommitRepository) =
+type Processor(callback : ITracktorServiceCallback,
+               issueRepository : IIssueRepository,
+               commitRepository : ICommitRepository) =
     let dispatch (channel : AsyncReplyChannel<unit>) message = async { 
         match message with
         | NewIssue issue ->
