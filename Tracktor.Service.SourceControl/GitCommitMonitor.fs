@@ -4,8 +4,9 @@ open LibGit2Sharp
 open System
 open System.IO
 open Tracktor.Contracts
+open Tracktor.Service.Common
 
-type GitCommitMonitor() =
+type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, url: String) =
     let event = Event<_>()
     let raiseEvent (commit: LibGit2Sharp.Commit) =
         event.Trigger { Revision = commit.Id.Sha
@@ -15,11 +16,12 @@ type GitCommitMonitor() =
 
     member __.NewCommit = event.Publish
     member __.Start() =
-        let url = "https://github.com/ForNeVeR/Tracktor.git"
-        let directory = Path.GetTempFileName()    
-
-        let clone = Repository.Clone(url, directory)
-        let repo = new Repository(clone)
+        let directory = Path.Combine(configuration.DataDirectory, projectName)
+        if not <| Directory.Exists directory
+        then
+            ignore <| Repository.Clone(url, directory)
+        
+        let repo = new Repository(directory)
         repository := Some repo
 
         do repo.Commits

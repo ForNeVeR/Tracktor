@@ -113,6 +113,11 @@
       <Project>{c10b25bb-7534-4689-8eea-062760b0488d}</Project>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Tracktor.Service.Common\Tracktor.Service.Common.fsproj">
+      <Name>Tracktor.Service.Common</Name>
+      <Project>{aab8502c-68de-424a-bc1d-60359e7c4246}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
