@@ -1,18 +1,45 @@
 ﻿namespace Tracktor.Service.SourceControl
 
 open LibGit2Sharp
+open ReactiveGit
 open System
 open System.IO
+open System.Reactive
+open System.Threading
+open System.Threading.Tasks
 open Tracktor.Contracts
 open Tracktor.Service.Common
 
 type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, url: String) =
+    let delay = TimeSpan.FromMinutes 5.0
+    
     let event = Event<_>()
     let raiseEvent (commit: LibGit2Sharp.Commit) =
         event.Trigger { Revision = commit.Id.Sha
                         Author = commit.Author.Name }
     
-    let repository = ref None
+    let tokenSource = new CancellationTokenSource()
+    let checkTask = ref None
+
+    let observe (commitSource : IObservable<LibGit2Sharp.Commit>) : Async<unit> =
+        let taskSource = TaskCompletionSource()
+        let observer = Observer.Create(raiseEvent, fun () -> taskSource.SetResult())
+        commitSource.Subscribe observer |> ignore
+        Async.AwaitTask taskSource.Task
+        
+
+    let checker path =
+        async {
+            while not Async.DefaultCancellationToken.IsCancellationRequested do
+                use repo = new ObservableRepository(path)
+                do! observe (repo.Pull(null) |> Observable.map (fun mergeInfo -> mergeInfo.Commit))
+                do! Async.Sleep(int delay.TotalMilliseconds)
+        }
+
+    let startTask path =
+        let token = tokenSource.Token
+        let task = Async.StartAsTask(checker path, cancellationToken = token)
+        task
 
     member __.NewCommit = event.Publish
     member __.Start() =
@@ -21,17 +48,21 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
         then
             ignore <| Repository.Clone(url, directory)
         
-        let repo = new Repository(directory)
-        repository := Some repo
-
+        use repo = new Repository(directory)
         do repo.Commits
         |> Seq.iter raiseEvent
 
-        // TODO: Start timer and check the repo periodically.
+        let task = startTask directory
+        checkTask := Some task
 
     interface IDisposable with
         member __.Dispose() =
-            match !repository with
-            | Some(repo) -> repo.Dispose()
+            tokenSource.Cancel()
+
+            match !checkTask with
+            | Some(task) ->
+                task.Wait()
             | None -> ()
+
+            tokenSource.Dispose()
 
