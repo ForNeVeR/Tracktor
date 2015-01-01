@@ -12,12 +12,12 @@ open Tracktor.Service.Common
 
 type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, url: String) =
     let delay = TimeSpan.FromMinutes 5.0
-    
+
     let event = Event<_>()
     let raiseEvent (commit: LibGit2Sharp.Commit) =
         event.Trigger { Revision = commit.Id.Sha
                         Author = commit.Author.Name }
-    
+
     let tokenSource = new CancellationTokenSource()
     let checkTask = ref None
 
@@ -26,7 +26,6 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
         let observer = Observer.Create(raiseEvent, fun () -> taskSource.SetResult())
         commitSource.Subscribe observer |> ignore
         Async.AwaitTask taskSource.Task
-        
 
     let checker path =
         async {
@@ -47,7 +46,7 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
         if not <| Directory.Exists directory
         then
             ignore <| Repository.Clone(url, directory)
-        
+
         use repo = new Repository(directory)
         do repo.Commits
         |> Seq.iter raiseEvent
@@ -65,4 +64,3 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
             | None -> ()
 
             tokenSource.Dispose()
-
