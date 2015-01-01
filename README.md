@@ -10,7 +10,7 @@ migration so you hopefully won't need to administer it.
 1. Install PostgreSQL server anywhere.
 2. Create a user, set up a database for him. An example of how it can be done:
 
-```sql
+   ```sql
 create user tracktor password 'password';
 create database Tracktor owner = tracktor;
 ```
@@ -18,7 +18,7 @@ create database Tracktor owner = tracktor;
 3. Set up the connection string in `Tracktor.Service/app.config`. It should
    look like this:
 
-```
+   ```
 Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
 ```
 
