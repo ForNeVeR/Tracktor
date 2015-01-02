@@ -7,6 +7,7 @@ open Tracktor.Service.Common
 [<AbstractClass>]
 type BaseRepository(configuration : ServiceConfiguration) =
     let connection = new NpgsqlConnection(configuration.ConnectionString)
+    do connection.Open()
 
     let addParameter (command : NpgsqlCommand) name (value : obj) =
         NpgsqlParameter(name, value)

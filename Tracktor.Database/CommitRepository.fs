@@ -10,7 +10,7 @@ type CommitRepository(configuration : ServiceConfiguration) =
             async {
                 use command =
                     x.CreateCommand
-                    <| "insert into Commit (IssueKey, Revision, Author) values (:issueKey, :revision, :author)"
+                    <| "insert into Commits (IssueKey, Revision, Author) values (:issueKey, :revision, :author)"
                     <| [("issueKey", "")
                         ("revision", commit.Revision)
                         ("author", commit.Author)]

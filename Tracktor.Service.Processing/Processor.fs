@@ -6,32 +6,33 @@ open Tracktor.Contracts
 type Processor(callback : ITracktorServiceCallback,
                issueRepository : IIssueRepository,
                commitRepository : ICommitRepository) =
-    let dispatch (channel : AsyncReplyChannel<unit>) message = async { 
+    let logErrors action =
+        async {
+            let! result = Async.Catch action
+            match result with
+            | Choice1Of2 r -> return r
+            | Choice2Of2 ex ->
+                printfn "Error: %A" ex // TODO: Proper error logging
+                return ()
+        }
+
+    let dispatch (channel : AsyncReplyChannel<unit>) message = async {
         match message with
         | NewIssue issue ->
-            do! issueRepository.Save issue
+            do! logErrors <| issueRepository.Save issue
             channel.Reply ()
         | NewCommit commit ->
-            do! commitRepository.Save commit
+            do! logErrors <| commitRepository.Save commit
             channel.Reply ()
     }
-    
+
     let mailbox = new MailboxProcessor<_>(fun inbox ->
         async { let! (channel, message) = inbox.Receive()
                 return! dispatch channel message })
 
     do mailbox.Start()
-    do ignore <| (Async.StartAsTask <| async {
-        // TODO: Remove this. It is here for testing purposes only.
-        while true do
-            do! Async.Sleep 5000
-            let issue = { Key = "key"
-                          Name = "name"
-                          Assignee = "assignee" }
-            let commit = { Revision = "revision"
-                           Author = "author" }
-            callback.FixAvailable(issue, commit)
-    })
+
+    // TODO: On commit of any object check if there are any unresolved fixes in the database.
 
     let send msg = mailbox.PostAndAsyncReply (fun channel -> (channel, msg))
 
