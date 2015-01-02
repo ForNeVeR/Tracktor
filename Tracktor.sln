@@ -29,6 +29,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Service.Processing
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Service.SourceControl", "Tracktor.Service.SourceControl\Tracktor.Service.SourceControl.fsproj", "{9FCFCB13-42AE-4EB0-8E57-B796BF8DBAEA}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tracktor.Service.IssueTracking", "Tracktor.Service.IssueTracking\Tracktor.Service.IssueTracking.fsproj", "{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU (develop) = Debug|Any CPU (develop)
@@ -109,6 +111,14 @@ Global
 		{9FCFCB13-42AE-4EB0-8E57-B796BF8DBAEA}.Release|Any CPU (develop).Build.0 = Release|Any CPU
 		{9FCFCB13-42AE-4EB0-8E57-B796BF8DBAEA}.Release|x64.ActiveCfg = Release|x64
 		{9FCFCB13-42AE-4EB0-8E57-B796BF8DBAEA}.Release|x64.Build.0 = Release|x64
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Debug|Any CPU (develop).ActiveCfg = Debug|Any CPU
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Debug|Any CPU (develop).Build.0 = Debug|Any CPU
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Debug|x64.ActiveCfg = Debug|x64
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Debug|x64.Build.0 = Debug|x64
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Release|Any CPU (develop).ActiveCfg = Release|Any CPU
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Release|Any CPU (develop).Build.0 = Release|Any CPU
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Release|x64.ActiveCfg = Release|x64
+		{BCEC091C-59C4-45CB-BB90-8FA58A689E0C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
