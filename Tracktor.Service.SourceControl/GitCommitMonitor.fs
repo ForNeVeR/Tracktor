@@ -32,7 +32,9 @@ type GitCommitMonitor(configuration: ServiceConfiguration, parameters : ProjectP
         async {
             while not Async.DefaultCancellationToken.IsCancellationRequested do
                 use repo = new ObservableRepository(path)
-                do! observe (repo.Pull emptyObserver |> Observable.map (fun mergeInfo -> mergeInfo.Commit))
+                do! observe (repo.Pull emptyObserver
+                             |> Observable.map (fun mergeInfo -> mergeInfo.Commit)
+                             |> Observable.filter (fun c -> c <> null))
                 do! Async.Sleep(int delay.TotalMilliseconds)
         }
 
