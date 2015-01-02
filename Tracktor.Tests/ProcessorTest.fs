@@ -33,7 +33,8 @@ type ProcessorTest() =
         let commit = { Revision = "1"
                        Author = "A" }
         Async.RunSynchronously <| async {
-            do! processor.Post commit
+            processor.Post commit
+            do! Async.Sleep 1000
         }
 
         Mock.Verify(<@ commitRepository.Save commit @>, Times.Once)
@@ -48,7 +49,8 @@ type ProcessorTest() =
                       Name = "N"
                       Assignee = "A" }
         Async.RunSynchronously <| async {
-            do! processor.Post issue
+            processor.Post issue
+            do! Async.Sleep 1000
         }
 
         Mock.Verify(<@ issueRepository.Save issue @>, Times.Once)

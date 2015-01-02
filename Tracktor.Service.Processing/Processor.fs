@@ -16,25 +16,23 @@ type Processor(callback : ITracktorServiceCallback,
                 return ()
         }
 
-    let dispatch (channel : AsyncReplyChannel<unit>) message = async {
+    let dispatch message = logErrors <| async {
         match message with
         | NewIssue issue ->
-            do! logErrors <| issueRepository.Save issue
-            channel.Reply ()
+            do! issueRepository.Save issue
         | NewCommit commit ->
-            do! logErrors <| commitRepository.Save commit
-            channel.Reply ()
+            do! commitRepository.Save commit
     }
 
     let mailbox = new MailboxProcessor<_>(fun inbox ->
-        async { let! (channel, message) = inbox.Receive()
-                return! dispatch channel message })
+        async { let! message = inbox.Receive()
+                return! dispatch message })
 
     do mailbox.Start()
 
     // TODO: On commit of any object check if there are any unresolved fixes in the database.
 
-    let send msg = mailbox.PostAndAsyncReply (fun channel -> (channel, msg))
+    let send = mailbox.Post
 
     member __.Post issue = send <| NewIssue issue
     member __.Post commit = send <| NewCommit commit

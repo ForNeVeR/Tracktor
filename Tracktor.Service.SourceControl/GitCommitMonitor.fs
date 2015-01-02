@@ -28,10 +28,11 @@ type GitCommitMonitor(configuration: ServiceConfiguration, parameters : ProjectP
         Async.AwaitTask taskSource.Task
 
     let checker path =
+        let emptyObserver = Observer.Create<string * int>(fun _ -> ())
         async {
             while not Async.DefaultCancellationToken.IsCancellationRequested do
                 use repo = new ObservableRepository(path)
-                do! observe (repo.Pull(null) |> Observable.map (fun mergeInfo -> mergeInfo.Commit))
+                do! observe (repo.Pull emptyObserver |> Observable.map (fun mergeInfo -> mergeInfo.Commit))
                 do! Async.Sleep(int delay.TotalMilliseconds)
         }
 
@@ -47,10 +48,8 @@ type GitCommitMonitor(configuration: ServiceConfiguration, parameters : ProjectP
             if not <| Directory.Exists directory
             then
                 ignore <| Repository.Clone(parameters.Url, directory)
-
-            use repo = new Repository(directory)
-            do repo.Commits
-            |> Seq.iter raiseEvent
+                use repo = new Repository(directory)
+                Seq.iter raiseEvent repo.Commits
 
             let task = startTask directory
             checkTask := Some task
