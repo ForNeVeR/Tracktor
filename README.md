@@ -1,6 +1,9 @@
 Tracktor
 ========
-Tracktor is a service for monitoring version control system.
+![ForNeVeR/Tracktor](http://issuestats.com/github/ForNeVeR/Tracktor/badge/pr?style=flat-square) ![ForNeVeR/Tracktor](http://issuestats.com/github/ForNeVeR/Tracktor/badge/issue?style=flat-square)
+
+
+Tracktor is a service for version control system monitoring.
 
 Database setup
 --------------
