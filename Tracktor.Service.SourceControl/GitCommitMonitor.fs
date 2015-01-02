@@ -10,7 +10,7 @@ open System.Threading.Tasks
 open Tracktor.Contracts
 open Tracktor.Service.Common
 
-type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, url: String) =
+type GitCommitMonitor(configuration: ServiceConfiguration, parameters : ProjectParameters) =
     let delay = TimeSpan.FromMinutes 5.0
 
     let event = Event<_>()
@@ -43,10 +43,10 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
     interface ICommitMonitor with
         member __.NewCommit = event.Publish
         member __.Start() =
-            let directory = Path.Combine(configuration.DataDirectory, projectName)
+            let directory = Path.Combine(configuration.DataDirectory, parameters.Name)
             if not <| Directory.Exists directory
             then
-                ignore <| Repository.Clone(url, directory)
+                ignore <| Repository.Clone(parameters.Url, directory)
 
             use repo = new Repository(directory)
             do repo.Commits
