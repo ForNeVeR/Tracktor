@@ -10,14 +10,19 @@ open Tracktor.Service.SourceControl
 type TracktorService(container : IUnityContainer) =
     let worker: ProjectWorker option ref = ref None
     let contextContainer = container.CreateChildContainer()
-    do ignore (contextContainer.RegisterInstance contextContainer)
-    
+
     interface ITracktorService with
-        member __.Subscribe() =
+        member __.Subscribe parameters =
+            contextContainer.RegisterInstance parameters |> ignore
+
             let callback = OperationContext.Current.GetCallbackChannel<ITracktorServiceCallback>()
-            contextContainer.RegisterInstance callback |> ignore
-            let commitMonitor = contextContainer.Resolve<GitCommitMonitor>()
-            contextContainer.RegisterInstance commitMonitor |> ignore
+            let commitMonitor = contextContainer.Resolve<ICommitMonitor> "git"
+
+            contextContainer
+                .RegisterInstance(callback)
+                .RegisterInstance(commitMonitor)
+            |> ignore
+
             worker := Some <| contextContainer.Resolve<ProjectWorker>()
 
     interface IDisposable with

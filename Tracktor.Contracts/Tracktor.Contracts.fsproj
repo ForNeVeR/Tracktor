@@ -46,6 +46,7 @@
     <Compile Include="Issue.fs" />
     <Compile Include="Commit.fs" />
     <Compile Include="ITracktorServiceCallback.fs" />
+    <Compile Include="ProjectParameters.fs" />
     <Compile Include="ITracktorService.fs" />
   </ItemGroup>
   <PropertyGroup>

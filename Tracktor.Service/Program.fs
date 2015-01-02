@@ -6,6 +6,7 @@ open System.ServiceProcess
 open Tracktor.Contracts
 open Tracktor.Database
 open Tracktor.Service.Common
+open Tracktor.Service.SourceControl
 
 let configureServices (container : IUnityContainer) =
     container
@@ -16,6 +17,7 @@ let configure (container : IUnityContainer) =
     container
     |> TracktorServiceCommon.configure
     |> TracktorDatabase.configure
+    |> TracktorServiceSourceControl.configure
     |> configureServices
 
 let migrateDatabase (container : IUnityContainer) =
@@ -25,12 +27,12 @@ let migrateDatabase (container : IUnityContainer) =
 [<EntryPoint>]
 let main args =
     use container = configure <| new UnityContainer()
-    
+
     migrateDatabase container
 
     use service = container.Resolve<TracktorWindowsService>()
     if Environment.UserInteractive
-    then 
+    then
         service.Start args
         Console.ReadKey() |> ignore
     else ServiceBase.Run service

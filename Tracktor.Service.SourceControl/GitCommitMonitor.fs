@@ -40,19 +40,20 @@ type GitCommitMonitor(configuration: ServiceConfiguration, projectName: String, 
         let task = Async.StartAsTask(checker path, cancellationToken = token)
         task
 
-    member __.NewCommit = event.Publish
-    member __.Start() =
-        let directory = Path.Combine(configuration.DataDirectory, projectName)
-        if not <| Directory.Exists directory
-        then
-            ignore <| Repository.Clone(url, directory)
+    interface ICommitMonitor with
+        member __.NewCommit = event.Publish
+        member __.Start() =
+            let directory = Path.Combine(configuration.DataDirectory, projectName)
+            if not <| Directory.Exists directory
+            then
+                ignore <| Repository.Clone(url, directory)
 
-        use repo = new Repository(directory)
-        do repo.Commits
-        |> Seq.iter raiseEvent
+            use repo = new Repository(directory)
+            do repo.Commits
+            |> Seq.iter raiseEvent
 
-        let task = startTask directory
-        checkTask := Some task
+            let task = startTask directory
+            checkTask := Some task
 
     interface IDisposable with
         member __.Dispose() =

@@ -9,10 +9,11 @@ type TracktorServiceConnection() as this =
                                                              NetTcpBinding(),
                                                              EndpointAddress("net.tcp://localhost:6667"))
     let channel = factory.CreateChannel()
-    do channel.Subscribe()
+    let parameters = { Name = "Tracktor"; Url = "https://github.com/ForNeVeR/Tracktor.git" }
+    do channel.Subscribe parameters
 
     let fixAvailable = Event<_>()
-    
+
     interface IDisposable with
         member __.Dispose() =
             (factory :> IDisposable).Dispose()

@@ -6,4 +6,4 @@ open System.ServiceModel
                   CallbackContract = typeof<ITracktorServiceCallback>)>]
 type ITracktorService =
     [<OperationContract(IsOneWay = true)>]
-    abstract Subscribe : unit -> unit
+    abstract Subscribe : ProjectParameters -> unit
