@@ -2,7 +2,6 @@ Tracktor
 ========
 ![ForNeVeR/Tracktor](http://issuestats.com/github/ForNeVeR/Tracktor/badge/pr?style=flat-square) ![ForNeVeR/Tracktor](http://issuestats.com/github/ForNeVeR/Tracktor/badge/issue?style=flat-square)
 
-
 Tracktor is a service for version control system monitoring.
 
 Database setup
@@ -14,16 +13,16 @@ migration so you hopefully won't need to administer it.
 2. Create a user, set up a database for him. An example of how it can be done:
 
    ```sql
-create user tracktor password 'password';
-create database Tracktor owner = tracktor;
-```
+   create user tracktor password 'password';
+   create database Tracktor owner = tracktor;
+   ```
 
 3. Set up the connection string in `Tracktor.Service/app.config`. It should
    look like this:
 
    ```
-Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
-```
+   Server=localhost;Port=5432;User Id=tracktor;Password=password;Database=Tracktor;
+   ```
 
 Service Installation
 --------------------
